@@ -1,42 +1,83 @@
+@import "tailwindcss";
+
+/* ------------------ GLOBAL STYLING ------------------ */
+
+/* Root variables for cards, etc. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --card-radius: 14px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
+/* Body styling */
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%); /* subtle white gradient for shiny look */
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; /* stylish font */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
+  color: #374151; /* default text color (Tailwind gray-700) */
   margin: 0;
+  padding: 0;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Headings for professional look */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  color: #4f46e5; /* purple-ish heading */
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* Card Styling */
+.card {
+  background-color: #ffffff;
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06); /* subtle shadow for depth */
+  padding: 1rem;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  background: rgba(2,6,23,0.55);
+}
+
+/* Buttons default styling */
+button {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Input fields */
+input, textarea, select {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  border-radius: var(--card-radius);
+  border: 1px solid #e5e7eb; /* light gray border */
+  background-color: #ffffff;
+  color: #6b7280; /* Tailwind gray-500 */
+  padding: 0.5rem 0.75rem;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #4f46e5; /* purple focus border */
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.2); /* subtle purple glow */
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  color: #6b7280; /* gray text */
+}
+
+th {
+  color: #7c3aed; /* purple headings */
+  font-weight: 600;
+}
+
+td {
+  color: #636c78; /* gray text */
+}
+
+tr:hover {
+  background-color: #f9fafb; /* subtle hover */
 }

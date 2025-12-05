@@ -43,9 +43,7 @@ export default function TasksPage() {
       body: JSON.stringify({ id, completed }),
     });
     const updated = await res.json();
-    setTasks((prev) =>
-      prev.map((t) => (t._id === id ? updated : t))
-    );
+    setTasks((prev) => prev.map((t) => (t._id === id ? updated : t)));
   };
 
   const deleteTask = async (id) => {
@@ -68,7 +66,6 @@ export default function TasksPage() {
     setEditingTask(null);
   };
 
-  // Filtered & Paginated
   const filtered = useMemo(() => {
     if (!query) return tasks;
     return tasks.filter((t) =>
@@ -84,23 +81,26 @@ export default function TasksPage() {
   }, [filtered, page]);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 overflow-x-hidden">
       <Sidebar />
-      <main className="flex-1 p-6">
-       <h1 className="text-3xl font-bold mb-6 text-purple-600">
-  Tasks
-</h1>
 
+      <main className="flex-1 p-4 md:p-6 w-full overflow-x-hidden">
 
-        {/* Add & Search Form */}
-        <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        {/* Heading fix (not behind sidebar icon) */}
+        <h1 className="text-3xl font-bold mb-6 text-purple-600 md:ml-0 ml-14">
+          Tasks
+        </h1>
+
+        {/* Add & Search */}
+        <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-4 w-full">
           <input
             type="text"
             placeholder="Add new task..."
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
-            className="flex-1 px-4 py-2 border border-gray-200 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="flex-1 min-w-[200px] px-4 py-2 border border-gray-200 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
+
           <button
             onClick={addTask}
             className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
@@ -113,21 +113,24 @@ export default function TasksPage() {
             placeholder="Search tasks..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 px-4 py-2 border border-gray-200 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="flex-1 min-w-[200px] px-4 py-2 border border-gray-200 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
-         
         </div>
 
-        {/* Task Table */}
-        <TaskTable
-          tasks={paginated}
-          toggleComplete={toggleComplete}
-          deleteTask={deleteTask}
-          onEdit={setEditingTask}
-        />
+        {/* Task Table (fixed — always horizontal scroll only) */}
+        <div className="overflow-x-auto w-full">
+          <TaskTable
+            tasks={paginated}
+            toggleComplete={toggleComplete}
+            deleteTask={deleteTask}
+            onEdit={setEditingTask}
+          />
+        </div>
 
         {/* Pagination */}
-        <Pagination page={page} setPage={setPage} totalPages={totalPages} />
+        <div className="flex flex-wrap justify-center mt-4">
+          <Pagination page={page} setPage={setPage} totalPages={totalPages} />
+        </div>
 
         {editingTask && (
           <EditModal

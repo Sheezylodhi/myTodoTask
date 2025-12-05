@@ -1,4 +1,4 @@
-// StatsCard.jsx
+// ------------------ StatsCard.jsx ------------------
 "use client";
 
 export default function StatsCard({ title, value, color }) {

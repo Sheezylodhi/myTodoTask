@@ -28,7 +28,7 @@ export default function CompletedTasks() {
   };
 
   const toggleComplete = async (id, completed) => {
-    const res = await fetch("/api/tasks", {
+    await fetch("/api/tasks", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, completed }),
@@ -50,18 +50,22 @@ export default function CompletedTasks() {
   const completedTasks = tasks.filter((t) => t.completed);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50 overflow-x-hidden">
       <Sidebar />
 
-      <main className="flex-1 p-6">
-        <h1 className="text-3xl font-bold mb-6 text-purple-600">Completed Tasks</h1>
+      <main className="flex-1 p-4 md:p-6 w-full overflow-x-hidden">
+        <h1 className="text-3xl font-bold mb-6 text-purple-600 md:ml-0 ml-14">
+          Completed Tasks
+        </h1>
 
-        <TaskTable
-          tasks={completedTasks}
-          toggleComplete={toggleComplete}
-          deleteTask={deleteTask}
-          onEdit={setEditingTask}
-        />
+        <div className="overflow-x-auto w-full">
+          <TaskTable
+            tasks={completedTasks}
+            toggleComplete={toggleComplete}
+            deleteTask={deleteTask}
+            onEdit={setEditingTask}
+          />
+        </div>
 
         {editingTask && (
           <EditModal
